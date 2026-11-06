@@ -73,6 +73,22 @@ Formatos de audio: mp3, m4a, mp4, aac, wav, flac, ogg, mkv/webm, aiff, caf.
 
   Desde la 0.1.4 hay además **unas 180 voces en más de 40 idiomas** (catalán, euskera, francés, alemán, italiano, portugués, español de México y Argentina…). Son las voces [Piper](https://github.com/rhasspy/piper). Pregúntale a Claude «¿qué voces hay en catalán?» o usa `stt-tts voces`. Cada voz se descarga (20–120 MB) la primera vez que se usa.
 
+#### Descargar voces nuevas (desde la 0.1.4)
+
+No hace falta descargar nada a mano: **la primera vez que usas una voz, se descarga sola** (20–120 MB, tarda unos segundos) y queda instalada para siempre.
+
+- **Con Claude:** pídela por idioma o por nombre, por ejemplo «léelo en catalán», «léelo con la voz `es_AR-daniela-high`» o «¿qué voces hay en italiano?». Claude elige la voz y se descarga al generar el audio.
+- **Desde la terminal**, para verlas o descargarlas antes de usarlas (por ejemplo, si después vas a estar sin conexión):
+
+```sh
+stt-tts voces                                   # idiomas disponibles y voces ya instaladas
+stt-tts voces --idioma it                       # todas las voces en italiano (✅ = instalada)
+stt-tts voces --descargar it_IT-paola-medium    # descargar una voz ahora
+stt-tts hablar "Ciao a tutti" --voz it_IT-paola-medium
+```
+
+La lista de voces disponibles se consulta en internet como mucho una vez al día. `stt-tts voces --actualizar` la consulta en el momento. Las voces se guardan junto a los modelos y se borran con `stt-tts desinstalar --borrar-modelos`.
+
 ### Desde la terminal
 
 ```sh
