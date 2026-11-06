@@ -102,6 +102,44 @@ stt-tts voces --idioma ca                             # (0.1.4) voces en catalá
 stt-tts --help                                        # todos los comandos
 ```
 
+### Con otros agentes y clientes (opencode, Codex, Cursor, el chatbot…)
+
+`stt-tts configurar` solo deja configurados Claude Code y Claude Desktop, pero el servidor es MCP estándar y vale para cualquier cliente MCP **que se ejecute en tu mismo ordenador**. Hay dos formas de conectarlo, y en cada cliente basta una de ellas:
+
+- **HTTP:** la URL `http://127.0.0.1:8765/mcp`. El servidor ya está en marcha porque arranca solo al iniciar sesión; compruébalo con `stt-tts estado`.
+- **stdio:** el comando `stt-tts stdio`. Arranca el servidor si no está en marcha y comparte con los demás clientes los modelos cargados y la cola de transcripciones. Si el cliente no encuentra `stt-tts`, pon la ruta completa: `~/.local/bin/stt-tts` en macOS y Linux, o `%LOCALAPPDATA%\Programs\stt-tts\stt-tts.exe` en Windows.
+
+**opencode**: en `~/.config/opencode/opencode.json`:
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "stt-tts": { "type": "remote", "url": "http://127.0.0.1:8765/mcp", "enabled": true }
+  }
+}
+```
+
+Con stdio: `"stt-tts": { "type": "local", "command": ["stt-tts", "stdio"], "enabled": true }`. Compruébalo con `opencode mcp list`.
+
+**Codex (CLI de OpenAI)**:
+
+```bash
+codex mcp add stt-tts -- stt-tts stdio
+# o por HTTP:
+codex mcp add stt-tts --url http://127.0.0.1:8765/mcp
+```
+
+**Cursor**: en `~/.cursor/mcp.json`, `{ "mcpServers": { "stt-tts": { "url": "http://127.0.0.1:8765/mcp" } } }`.
+
+**VS Code (Copilot)**: en `mcp.json`, `{ "servers": { "stt-tts": { "type": "http", "url": "http://127.0.0.1:8765/mcp" } } }`.
+
+**Chatbot de Centic (app de escritorio)**: añade un servidor MCP con la URL `http://127.0.0.1:8765/mcp`. Desde la v0.65.0, los audios generados aparecen con un botón «▶ Abrir».
+
+**No funciona con ChatGPT, claude.ai, ni la versión web del chatbot.** Esos clientes se conectan a los MCP desde sus propios servidores en internet y no llegan a tu ordenador, así que tampoco podrían leer tus grabaciones. Usa en su lugar un cliente de escritorio o de terminal de los de arriba.
+
+Sea cual sea el cliente, el audio se le pasa **por ruta** (o por nombre, si está en `~/Grabaciones`), y el audio generado se guarda en `~/Grabaciones/tts`.
+
 ### Mantenimiento
 
 ```sh
