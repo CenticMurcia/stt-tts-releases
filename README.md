@@ -49,7 +49,15 @@ Dónde quedan los resultados:
 | Qué | Dónde |
 |---|---|
 | Transcripciones (`.txt` con marcas de tiempo, `.srt` de subtítulos, `.json`) | `~/Grabaciones/transcripciones/` |
-| Voz generada (`.wav`) | `~/Grabaciones/tts/` |
+| Voz generada (`.mp3` desde la 0.1.5; antes `.wav`) | `~/Grabaciones/tts/` |
+
+Desde la 0.1.5 la voz se guarda en **MP3** (unos 0,5 MB por minuto). Si quieres el audio sin comprimir para editarlo, pídelo «en WAV» (unas 5 veces más grande).
+
+**Escuchar la voz generada:** abre el fichero con doble clic, o desde la terminal:
+
+- Mac: `afplay ~/Grabaciones/tts/voz-….mp3`. Viene con macOS; se para con Ctrl+C.
+- Windows: `start ~\Grabaciones\tts\voz-….mp3`.
+- Linux: `xdg-open ~/Grabaciones/tts/voz-….mp3`.
 
 **Importante:**
 
@@ -95,7 +103,8 @@ La lista de voces disponibles se consulta en internet como mucho una vez al día
 stt-tts transcribir reunion.m4a                       # el idioma se detecta solo
 stt-tts transcribir reunion.m4a --hablantes --num-hablantes 4
 stt-tts transcribir entrevista.mp3 --idioma pt
-stt-tts hablar "Hola equipo"                          # crea un .wav en ~/Grabaciones/tts
+stt-tts hablar "Hola equipo"                          # crea un .mp3 en ~/Grabaciones/tts
+stt-tts hablar "Hola equipo" --formato wav            # (0.1.5) WAV sin comprimir, para editarlo
 stt-tts hablar "Hola equipo" --voz es_ES-sharvard --hablante F   # voz femenina
 stt-tts hablar "Bonjour à tous" --idioma fr           # (0.1.4) voz por defecto en francés
 stt-tts voces --idioma ca                             # (0.1.4) voces en catalán
